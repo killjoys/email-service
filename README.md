@@ -9,10 +9,10 @@ There are 3 popular frameworks for front-end
 
 ## Technical Specs
 ### Back-end: NodeJS
-Since VueJS is a new thing for me and I have some basic knowledge in NodeJS when I was in the university. So, I decided to use it to reduce learning time for this test
+- Since VueJS is a new thing for me and I have some basic knowledge in NodeJS when I was in the university. So, I decided to use Node to reduce learning time for this test
 
 ### Database: SQL
-As we want to keep history of email delivery and it's a structural data which contains 
+The purpose to use database is to keep history of email delivery and it's a structured data so SQL would be fit in this case 
 - id
 - datatime
 - recipient
