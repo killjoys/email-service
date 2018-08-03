@@ -45,7 +45,8 @@
                         </div>
 
                         <div class="form-group" align="center">
-                            <button class="btn btn-success btn-light btn-large" id="send-button">{{send}}</button>
+                            <button class="btn btn-success btn-light btn-large" id="send-button">
+                            {{send}}</button>
                         </div></form>
                 </div>
             </div>
@@ -85,16 +86,16 @@
                     </tr>
                   </thead>
                   <tbody>
+                  /* eslint-disable */
                     <template v-for="mail in model.history">
                       <tr>
-                        <th scope="row">{{ mail.datetime }}</th>
+                        <th scope="row" :key="mail.id">{{ mail.datetime }}</th>
                         <td>{{ mail.recipient }}</td>
                         <td>{{ mail.subject }}</td>
                         <td>{{ mail.result}} </td>
-                        <td ><button class="btn btn-success btn-large" @click="showMail(mail)">
+                        <td><button class="btn btn-success btn-large" @click="showMail(mail)">
                         View</button></td>
                       </tr>
-
                     </template>
                   </tbody>
                 </table>
@@ -147,8 +148,8 @@ export default {
   methods: {
     clearValue: function clearValue() {
       this.model.recipient = '';
-      this.model.subject = '',
-      this.model.content = '',
+      this.model.subject = '';
+      this.model.content = '';
       this.send = 'Send';
     },
     async sendmail() {
