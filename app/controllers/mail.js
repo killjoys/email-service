@@ -1,6 +1,5 @@
 'use strict';
 const moment = require('moment');
-const sqlite3 = require("sqlite3").verbose();
 const sendGrid = require('../models/sendgrid.js');
 const sparkPost = require('../models/sparkpost.js');
 
@@ -13,18 +12,15 @@ const sparky  = new sparkPost("SparkPost", sparkPostApiKey);
 class MailController {
   static saveHistory(recipient, subject, content, result) {
     let now = moment().format('MMMM Do YYYY, h:mm:ss a');
-    let db = new sqlite3.Database("./database/EmailService.db");
     let sql = `INSERT INTO history(datetime,recipient,subject,content,result) 
     VALUES('${now}','${recipient}','${subject}','${content}','${result}')`;
-    db.serialize(function() {
-      db.run(sql, function(err) {
+    connection.query(sql, function(err, result) {
         if (err) {
           console.log(err);
         }
         console.log("History saved!");
       });
-    });
-  }
+    };
 
   static async sendMail(req, res) {
     let recipient = req.body.recipient;
@@ -39,6 +35,7 @@ class MailController {
         try {
           console.log('Something went wrong! Try another provider');
           await sgMail.send(recipient, subject, content)
+          console.log('Email Sent by '+ sgMail.getName() + '!');
           MailController.saveHistory(recipient, subject, content, 'Success');
           return res.json({status: 'success'});
         } catch(error) {

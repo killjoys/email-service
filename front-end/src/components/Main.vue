@@ -86,7 +86,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  /* eslint-disable */
                     <template v-for="mail in model.history">
                       <tr>
                         <th scope="row" :key="mail.id">{{ mail.datetime }}</th>
