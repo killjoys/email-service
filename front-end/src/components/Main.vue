@@ -40,13 +40,13 @@
 
                         <div class="form-group" align="left">
                             <label for="">Content:</label>
-                            <textarea rows="4" cols="50" required class="form-control" 
+                            <textarea rows="4" cols="50" required class="form-control"
                             placeholder="Enter Content" v-model="model.content" ></textarea>
                         </div>
-                        
+
                         <div class="form-group" align="center">
                             <button class="btn btn-success btn-light btn-large" id="send-button">{{send}}</button>
-                        </div></form> 
+                        </div></form>
                 </div>
             </div>
             <div id="mail-status" class="modal fade">
@@ -69,7 +69,7 @@
                   </div>
                 </div>
         </div>
-        <div class="tab-pane fade" id="pills-history" role="tabpanel" 
+        <div class="tab-pane fade" id="pills-history" role="tabpanel"
         aria-labelledby="pills-history-tab">
             <div class="row">
               <div class="col-md-12">
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   name: 'Main',
@@ -141,44 +141,43 @@ export default {
         history: [],
       },
       deliveryStatus: '',
-      send: 'Send'
+      send: 'Send',
     };
   },
   methods: {
     clearValue: function clearValue() {
-      this.model.recipient = ''
+      this.model.recipient = '';
       this.model.subject = '',
       this.model.content = '',
       this.send = 'Send';
     },
     async sendmail() {
-      this.send = 'Sending'
+      this.send = 'Sending';
       const formData = new FormData();
       formData.append('subject', this.model.subject);
       formData.append('recipient', this.model.recipient);
       formData.append('content', this.model.content);
-      let result = await axios.post('http://localhost:3128/sendmail', formData)
-      if(result.data.status === 'success') {
-        this.deliveryStatus = 'Email sent to ' + this.model.recipient;
-      }
-      else {
-        this.deliveryStatus = 'Unable to send email to ' + this.model.recipient;
+      const result = await axios.post('http://localhost:3128/sendmail', formData);
+      if (result.data.status === 'success') {
+        this.deliveryStatus = `Email sent to ${this.model.recipient}`;
+      } else {
+        this.deliveryStatus = `Unable to send email to ${this.model.recipient}`;
       }
       this.clearValue();
       $('#mail-status').modal('show');
     },
     loadHistory() {
-      axios.get(`http://localhost:3128/history`).then((res) => {
+      axios.get('http://localhost:3128/history').then((res) => {
         this.model.history = res.data.history;
       });
-  },
+    },
     showMail: function showMail(mail) {
       this.model.recipient = mail.recipient;
       this.model.subject = mail.subject;
       this.model.content = mail.content;
-      $("#mail-details").modal('show');
+      $('#mail-details').modal('show');
     },
-  }
+  },
 };
 </script>
 
