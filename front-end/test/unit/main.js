@@ -1,17 +1,8 @@
 import { mount } from 'avoriaz';
-import moxios from 'moxios'
 import Main from '@/components/Main';
 import Vue from 'vue';
 
 describe('Main.vue', () => {
-	beforeEach(function () {
-		moxios.install()
-    })
-
-   afterEach(function () {
-   	    moxios.uninstall()
-   })
-
   it('should display contents correctly', () => {
     const Constructor = Vue.extend(Main);
     const MainComponent = new Constructor().$mount();
