@@ -29,15 +29,5 @@ module.exports = {
       });
       db.close();
     });
-  },
-
-  delete: function(){
-    return new Promise(function(resolve, reject) {
-      let db = new sqlite3.Database("./database/EmailService.db");
-      db.serialize(function() {
-        db.run(`DELETE * FROM history`);
-      });
-      db.close();
-    });
   }
 };
