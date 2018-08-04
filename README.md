@@ -28,11 +28,12 @@ SendGrid and Sparkpost as their doc are easily to understand.
 - Provider is an interface that provides abstraction of email service provider and have 2 extended classes which are Sparkpost and Sendgrid
 
 ### Future implementation
-- Dockerize the app.
-- Use log4js that provides log level to better logging the app.
+- Handle error properly, should show pop-up when exception is throwed e.g., error during connection with database. 
 - Add more tests (unit, integration, end to end), to mock response from DB, server side
 - Get credential from DB or encode it instead of hard coding.
 - Apply eslint in server part (front-end is already applied)
+- Dockerize the app.
+- Use log4js that provides log level to better logging the app.
 
 ### Demo
 ```
