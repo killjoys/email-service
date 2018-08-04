@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const multipart = require("connect-multiparty");
 const cors = require("cors");
+const serveStatic = require('serve-static');
 
 const mysql = require("mysql");
 global.connection = mysql.createConnection({
@@ -30,7 +31,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
+app.use(serveStatic(__dirname + "/public/dist"));
 app.use('/sendmail', mailRouter);
 app.use('/history', historyRouter);
 
