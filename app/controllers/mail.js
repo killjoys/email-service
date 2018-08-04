@@ -1,4 +1,3 @@
-'use strict';
 const moment = require('moment');
 const sendGrid = require('../models/sendgrid.js');
 const sparkPost = require('../models/sparkpost.js');
@@ -22,19 +21,30 @@ class MailController {
       });
     };
 
-  static async sendMail(req, res) {
+  static getApiKey(provider) {
+    let sql = `SELECT apikey FROM credential WHERE name='${provider}'`;
+    console.log(sql);
+    connection.query(sql, function(err, result) {
+        if (err) {
+          console.log(err);
+        }
+        return result[0].apikey;
+      });
+    };
+
+  static sendMail(req, res) {
     let recipient = req.body.recipient;
     let subject = req.body.subject;
     let content = req.body.content;
 
-    sgMail.send(sgMail.send).then(data => {
-        console.log('Email Sent by '+ sgMail.getName() + '!');
+    sparky.send(recipient, subject, content).then(data => {
+        console.log('Email Sent by '+ sparky.getName() + '!');
         MailController.saveHistory(recipient, subject, content, 'Success');
         return res.json({status: 'success'});
       }).catch(err => {
          console.log('Something went wrong! Try another providers');
-         sparky.send(recipient, subject, content).then(data => {
-         console.log('Email Sent by '+ sparky.getName() + '!');
+         sgMail.send(recipient, subject, content).then(data => {
+         console.log('Email Sent by '+ sgMail.getName() + '!');
          MailController.saveHistory(recipient, subject, content, 'Success');
          return res.json({status: 'success'});
         }).catch(err => {
