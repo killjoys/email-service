@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 const sendGrid = require('../models/sendgrid.js');
 const sparkPost = require('../models/sparkpost.js');
 
@@ -10,7 +10,7 @@ const sparky  = new sparkPost("SparkPost", sparkPostApiKey);
 
 class MailController {
   static saveHistory(recipient, subject, content, result) {
-    let now = moment().format('MMMM Do YYYY, h:mm:ss a');
+    let now = moment().tz("Asia/Bangkok").format('MMMM Do YYYY, h:mm:ss a');
     let sql = `INSERT INTO history(datetime,recipient,subject,content,result) 
     VALUES('${now}','${recipient}','${subject}','${content}','${result}')`;
     connection.query(sql, function(err, result) {
