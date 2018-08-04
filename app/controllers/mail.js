@@ -26,24 +26,23 @@ class MailController {
     let recipient = req.body.recipient;
     let subject = req.body.subject;
     let content = req.body.content;
-    try {
-      await sparky.send(recipient, subject, content)
-      console.log('Email Sent by '+ sparky.getName() + '!');
-      MailController.saveHistory(recipient, subject, content, 'Success');
-      return res.json({status: 'success'});
-    } catch(error) {
-        try {
-          console.log('Something went wrong! Try another provider');
-          await sgMail.send(recipient, subject, content)
-          console.log('Email Sent by '+ sgMail.getName() + '!');
-          MailController.saveHistory(recipient, subject, content, 'Success');
-          return res.json({status: 'success'});
-        } catch(error) {
+
+    sgMail.send(sgMail.send).then(data => {
+        console.log('Email Sent by '+ sgMail.getName() + '!');
+        MailController.saveHistory(recipient, subject, content, 'Success');
+        return res.json({status: 'success'});
+      }).catch(err => {
+         console.log('Something went wrong! Try another providers');
+         sparky.send(recipient, subject, content).then(data => {
+         console.log('Email Sent by '+ sparky.getName() + '!');
+         MailController.saveHistory(recipient, subject, content, 'Success');
+         return res.json({status: 'success'});
+        }).catch(err => {
             console.log('All providers are unavailable');
             MailController.saveHistory(recipient, subject, content, 'Failed');
             return res.json({status: 'failed '});
-        }
-      }
+          });
+      });
     }
 }
 module.exports = MailController;
