@@ -157,7 +157,7 @@ export default {
       formData.append('subject', this.model.subject);
       formData.append('recipient', this.model.recipient);
       formData.append('content', this.model.content);
-      const result = await axios.post('http://localhost:3128/sendmail', formData);
+      const result = await axios.post('https://localhost:3128/sendmail', formData);
       if (result.data.status === 'success') {
         this.deliveryStatus = `Email sent to ${this.model.recipient}`;
       } else {
@@ -167,7 +167,7 @@ export default {
       $('#mail-status').modal('show');
     },
     loadHistory() {
-      axios.get('http://localhost:3128/history').then((res) => {
+      axios.get('https://localhost:3128/history').then((res) => {
         this.model.history = res.data.history;
       });
     },
