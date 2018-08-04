@@ -26,3 +26,15 @@ SendGrid and Sparkpost as their doc are easily to understand.
 ### Design
 ![Alt text](https://www.img.in.th/images/c6cf67495583847da4266a1f0d355f3e.png? "Class diagram")
 - Provider is an interface that provides abstraction of email service provider and have 2 extended classes which are Sparkpost and Sendgrid
+
+### Future implementation
+- Dockerize the app.
+- Use log4js that provides log level to better logging the app.
+- Add more tests (unit, integration, end to end), to mock response from DB, server side
+- Get credential from DB or encode it instead of hard coding.
+- Apply eslint in server part (front-end is already applied)
+
+### Demo
+```
+https://email-service-node.herokuapp.com/#/
+```
