@@ -21,17 +21,6 @@ class MailController {
       });
     };
 
-  static getApiKey(provider) {
-    let sql = `SELECT apikey FROM credential WHERE name='${provider}'`;
-    console.log(sql);
-    connection.query(sql, function(err, result) {
-        if (err) {
-          console.log(err);
-        }
-        return result[0].apikey;
-      });
-    };
-
   static sendMail(req, res) {
     let recipient = req.body.recipient;
     let subject = req.body.subject;
